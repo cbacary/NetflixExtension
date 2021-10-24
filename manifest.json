@@ -1,0 +1,39 @@
+{
+    "manifest_version": 2,
+    "name": "Netflix-IMDB-Display",
+    "version": "1.0",
+    "description": "Displays the IMDB rating of Netflix shows while on Netflix",
+    "content_scripts": [
+        {
+            "matches": [
+                "*://*.netflix.com/*",
+                "*://*.omdbapi.com/*",
+                "https://www.omdbapi.com/*",
+                "http://www.omdbapi.com/*"
+            ],
+            "js": [
+                "netflix.js"
+            ]
+        }
+    ],
+    "options_ui": {
+        "page": "popup/popup.html"
+    },
+    "permissions": [
+        "http://www.omdbapi.com/*",
+        "https://www.omdbapi.com/*",
+        "http://www.netflix.com/*",
+        "https://www.netflix.com/*",
+        "storage"
+    ],
+    "browser_action": {
+        "default_icon": "icons/icon.png",
+        "default_title": "Netflix-IMDb",
+        "default_popup": "popup/popup.html"
+    },
+    "browser_specific_settings": {
+        "gecko": {
+            "id": "e3b50327398b2451ef753a06d9630e94c506f313@temporary-addon"
+        }
+    }
+}
