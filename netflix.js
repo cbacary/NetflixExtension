@@ -1,6 +1,5 @@
 // Firefox extension 
 
-// apikey: 7177a536
 // request format: http://www.omdbapi.com/?apikey={apikey}&t={movie}
 // movieClassname =  class='previewModal--player-titleTreatment-logo title={movie}
 
