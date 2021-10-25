@@ -6,6 +6,21 @@
 
 // Dictionary with alreadyt queried movies (key) and their respective IMDB rating (value)
 
+function onError(error) {
+    console.log(`Error: ${error}`);
+}
+
+function onGot(item) {
+    console.log(item)
+    if (item.APIKey) {
+        APIKey = item.APIKey;
+    }
+    console.log(APIKey);
+}
+
+let getting = browser.storage.sync.get("APIKey");
+getting.then(onGot, onError);
+
 var movieDict = {};
 
 var hovering = false
@@ -17,7 +32,7 @@ var checkExist = setInterval(function () {
         var movieName = movie[0].getAttribute("title");
         // replace every occurence of ' ' with '+' in movieName
         movieName = movieName.replace(/ /g, '+');
-        var movieUrl = "https://www.omdbapi.com/?apikey=7177a536&t=" + movieName;
+        var movieUrl = "https://www.omdbapi.com/?apikey=" + APIKey + "&t=" + movieName;
         var request = new XMLHttpRequest();
         if (movieName in movieDict) {
             if (!hovering) {
@@ -26,6 +41,7 @@ var checkExist = setInterval(function () {
             }
         }
         else {
+            console.log("test2");
             hovering = true;
             fetch(movieUrl)
                 .then(response => response.json())
@@ -49,7 +65,7 @@ var checkYearExist = setInterval(function () {
         var year = document.querySelector(".detail-modal-container").querySelector(".year").innerText;
         var movieName = document.getElementsByClassName("previewModal--player-titleTreatment-logo")[0].getAttribute("title");
         movieName = movieName.replace(/ /g, '+');
-        var movieUrl = "https://www.omdbapi.com/?apikey=7177a536&t=" + movieName;
+        var movieUrl = "https://www.omdbapi.com/?apikey=" + APIKey + "&t=" + movieName;
         var request = new XMLHttpRequest();
         if (movieName in movieDict) {
             if (!moviePageOpen) {
@@ -88,14 +104,18 @@ function displayRatingMoviePage(rating) {
     var div = displayBar.appendChild(div_temp);
 }
 
-function onError(error) {
-    console.log(`Error: ${error}`);
-}
+// function onError(error) {
+//     console.log(`Error: ${error}`);
+// }
 
-function onGot(item) {
-    apiKey = item.apiKey;
-    console.log(item, apiKey);
-}
+// function onGot(item) {
+//     let APIKey = "color";
+//     console.log(item)
+//     if (item.color) {
+//         color = item.color;
+//     }
+//     document.body.style.border = "10px solid " + color;
+// }
 
-let getting = browser.storage.local.get("APIKey");
-getting.then(onGot, onError);
+// let getting = browser.storage.sync.get("color");
+// getting.then(onGot, onError);
